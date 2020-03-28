@@ -69,10 +69,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       ]),
                 ),
                 Container(
+                  height: 100,
+                  width: 100,
                   margin: EdgeInsets.only(
-                      top: 120, left: MediaQuery.of(context).size.width * 0.45),
+                      top: 100, left: MediaQuery.of(context).size.width * 0.40),
                   child: FloatingActionButton(
-                    child: Icon(Icons.add),
+                    child: Container(
+                      child: Icon(Icons.add, size: 50),
+                    ),
                     backgroundColor: Colors.red,
                     onPressed: () {},
                   ),
