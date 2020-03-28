@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'models/global.dart';
+import 'UI/Intray/intray_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -39,9 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 TabBarView(
                   children: [
-                    new Container(
-                      color: darkGreyColor,
-                    ),
+                    IntrayPage(),
                     new Container(
                       color: Colors.orange,
                     ),
@@ -74,10 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   margin: EdgeInsets.only(
                       top: 100, left: MediaQuery.of(context).size.width * 0.40),
                   child: FloatingActionButton(
-                    child: Container(
-                      child: Icon(Icons.add, size: 50),
-                    ),
-                    backgroundColor: Colors.red,
+                    child: Icon(Icons.add, size: 50),
+                    backgroundColor: redColor,
                     onPressed: () {},
                   ),
                 ),
