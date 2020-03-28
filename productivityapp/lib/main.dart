@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
-          bottomNavigationBar: new TabBar(
+          appBar: new TabBar(
             tabs: [
               Tab(
                 icon: new Icon(Icons.home),
