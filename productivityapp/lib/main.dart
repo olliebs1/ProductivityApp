@@ -27,10 +27,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: MaterialApp(
-        color: Colors.yellow,
-        home: DefaultTabController(
+    return MaterialApp(
+      color: Colors.yellow,
+      home: SafeArea(
+        child: DefaultTabController(
           length: 4,
           child: new Scaffold(
             body: TabBarView(
