@@ -20,23 +20,17 @@ class _IntrayPageState extends State<IntrayPage> {
   }
 
   List<Widget> getList() {
-    return [
-      Container(
+    List<Container> list = [];
+    for (int i = 0; i < 10; i++) {
+      list.add(Container(
         height: 100,
         color: Colors.red,
-      ),
-      Container(
-        height: 100,
-        color: Colors.green,
-      ),
-      Container(
-        height: 100,
-        color: Colors.yellow,
-      ),
-      Container(
+      ));
+      list.add(Container(
         height: 100,
         color: Colors.blue,
-      )
-    ];
+      ));
+    }
+    return list;
   }
 }
