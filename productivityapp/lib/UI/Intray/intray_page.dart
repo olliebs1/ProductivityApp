@@ -11,6 +11,7 @@ class _IntrayPageState extends State<IntrayPage> {
   List<IntrayProductivity> todoItems = [];
   @override
   Widget build(BuildContext context) {
+    todoItems = getList();
     return Container(
         color: darkGreyColor, child: _buildReorderableListSimple(context));
     // child: ReorderableListView(
@@ -25,7 +26,7 @@ class _IntrayPageState extends State<IntrayPage> {
   Widget _buildListTile(BuildContext context, IntrayProductivity item) {
     return ListTile(
       key: Key(item.keyValue),
-      title: Text(item.title),
+      title: item,
     );
   }
 
@@ -33,7 +34,7 @@ class _IntrayPageState extends State<IntrayPage> {
     return ReorderableListView(
       // handleSide: ReorderableListSimpleSide.Right,
       // handleIcon: Icon(Icons.access_alarm),
-      padding: EdgeInsets.only(top: 20.0),
+      padding: EdgeInsets.only(top: 300.0),
       children: todoItems
           .map((IntrayProductivity item) => _buildListTile(context, item))
           .toList(),
