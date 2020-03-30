@@ -36,7 +36,7 @@ class _IntrayPageState extends State<IntrayPage> {
   Widget _buildReorderableListSimple(BuildContext context) {
     return Theme(
         data: ThemeData(
-          canvasColor: darkGreyColor,
+          canvasColor: Colors.transparent,
         ),
         child: ReorderableListView(
           padding: EdgeInsets.only(top: 300.0),
