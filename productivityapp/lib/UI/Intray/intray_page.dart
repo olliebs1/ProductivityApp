@@ -8,23 +8,59 @@ class IntrayPage extends StatefulWidget {
 }
 
 class _IntrayPageState extends State<IntrayPage> {
+  List<IntrayProductivity> todoItems = [];
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: darkGreyColor,
-        child: ListView(
-          padding: EdgeInsets.only(
-            top: 300,
-          ),
-          children: getList(),
-        ));
+        color: darkGreyColor, child: _buildReorderableListSimple(context));
+    // child: ReorderableListView(
+    //   padding: EdgeInsets.only(
+    //     top: 300,
+    //   ),
+    //   children: getList(),
+    //   onReorder: _onReorder,
+    // ));
+  }
+
+  Widget _buildListTile(BuildContext context, IntrayProductivity item) {
+    return ListTile(
+      key: Key(item.keyValue),
+      title: Text(item.title),
+    );
+  }
+
+  Widget _buildReorderableListSimple(BuildContext context) {
+    return ReorderableListView(
+      // handleSide: ReorderableListSimpleSide.Right,
+      // handleIcon: Icon(Icons.access_alarm),
+      padding: EdgeInsets.only(top: 20.0),
+      children: todoItems
+          .map((IntrayProductivity item) => _buildListTile(context, item))
+          .toList(),
+      onReorder: (oldIndex, newIndex) {
+        setState(() {
+          IntrayProductivity item = todoItems[oldIndex];
+          todoItems.remove(item);
+          todoItems.insert(newIndex, item);
+        });
+      },
+    );
+  }
+
+  void _onReorder(int oldIndex, int newIndex) {
+    setState() {
+      if (newIndex > oldIndex) {
+        newIndex -= 1;
+      }
+      final IntrayProductivity item = todoItems.removeAt(oldIndex);
+      todoItems.insert(newIndex, item);
+    }
   }
 
   List<Widget> getList() {
-    List<IntrayProductivity> list = [];
     for (int i = 0; i < 10; i++) {
-      list.add(IntrayProductivity(title: "Hello"));
+      todoItems.add(IntrayProductivity(keyValue: i.toString(), title: "Hello"));
     }
-    return list;
+    return todoItems;
   }
 }

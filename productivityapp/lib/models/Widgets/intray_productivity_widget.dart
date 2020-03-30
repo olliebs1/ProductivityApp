@@ -3,7 +3,8 @@ import 'package:productivityapp/models/global.dart';
 
 class IntrayProductivity extends StatelessWidget {
   final String title;
-  IntrayProductivity({this.title});
+  final String keyValue;
+  IntrayProductivity({this.keyValue, this.title});
   @override
   Widget build(BuildContext context) {
     return Container(
