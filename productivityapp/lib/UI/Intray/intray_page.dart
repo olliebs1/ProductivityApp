@@ -34,18 +34,23 @@ class _IntrayPageState extends State<IntrayPage> {
   }
 
   Widget _buildReorderableListSimple(BuildContext context) {
-    return ReorderableListView(
-      padding: EdgeInsets.only(top: 300.0),
-      children:
-          taskList.map((Task item) => _buildListTile(context, item)).toList(),
-      onReorder: (oldIndex, newIndex) {
-        setState(() {
-          Task item = taskList[oldIndex];
-          taskList.remove(item);
-          taskList.insert(newIndex, item);
-        });
-      },
-    );
+    return Theme(
+        data: ThemeData(
+          canvasColor: darkGreyColor,
+        ),
+        child: ReorderableListView(
+          padding: EdgeInsets.only(top: 300.0),
+          children: taskList
+              .map((Task item) => _buildListTile(context, item))
+              .toList(),
+          onReorder: (oldIndex, newIndex) {
+            setState(() {
+              Task item = taskList[oldIndex];
+              taskList.remove(item);
+              taskList.insert(newIndex, item);
+            });
+          },
+        ));
   }
 
   void _onReorder(int oldIndex, int newIndex) {

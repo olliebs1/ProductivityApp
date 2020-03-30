@@ -9,7 +9,7 @@ class IntrayProductivity extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       key: Key(keyValue),
-      margin: EdgeInsets.only(bottom: 15, left: 15, right: 15),
+      margin: EdgeInsets.only(bottom: 5),
       padding: EdgeInsets.all(10),
       height: 100,
       decoration: BoxDecoration(
