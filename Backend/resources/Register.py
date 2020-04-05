@@ -1,4 +1,5 @@
 from flask_restful import Resource
+from flask import request
 
 
 class Register(Resource):
@@ -6,4 +7,8 @@ class Register(Resource):
         return {"message": "getting user"}
 
     def post(self):
-        return {"message": "Registering user"}
+        data = request.get_json()
+        username = data['username']
+        password = data['password']
+        email = data['email']
+        return {"message": "registering {}".format(username)}
