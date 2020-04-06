@@ -19,7 +19,12 @@ class Register(Resource):
 
         user = User.query.filter_by(username=json_data['username']).first()
         if user:
-            return {'message': 'User already exists'}, 400
+            return {'message': 'Username already exists'}, 400
+
+        user = User.query.filter_by(
+            emailaddress=json_data['emailaddress']).first()
+        if user:
+            return {'message': 'Emailaddress already exists'}, 400
 
         user = User(
             username=json_data['username'],
