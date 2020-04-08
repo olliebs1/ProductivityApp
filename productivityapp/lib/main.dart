@@ -18,48 +18,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.grey,
         ),
-        home: LoginPage()
-        // FutureBuilder(
-        //     future: getUser(), // a previously-obtained Future<String> or null
-        //     builder: (BuildContext context, AsyncSnapshot snapshot) {
-        //       if (snapshot.connectionState == ConnectionState.none &&
-        //           snapshot.hasData == null) {
-        //         return Container();
-        //       }
-        //       return ListView.builder(
-        //         itemCount: snapshot.data.length,
-        //         itemBuilder: (context, index) {
-        //           return Column(
-        //             children: <Widget>[],
-        //           );
-        //         },
-        //       );
-        //     }),
-        );
-  }
-
-  Future getUser() async {
-    var result = await http.get('http://127.0.0.1:5000/api/register');
-    print(result.body);
-    return result;
-    // String apiKey = await getApiKey();
-    // if (apiKey.length <= 0) {
-    // } else {}
-  }
-
-  asyncFunc() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-  }
-
-  Future<String> getApiKey() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String apiKey;
-    try {
-      apiKey = prefs.getString('API_Token');
-    } catch (exception) {
-      apiKey = '';
-    }
-    return apiKey;
+        home: MyHomePage());
   }
 }
 
@@ -73,10 +32,29 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  SharedPreferences prefs;
   @override
   Widget build(BuildContext context) {
-    bloc.registerUser("ollierwqe", "ollwqeerie", "ollqweerie", "123reqwe",
-        "ollieerr qeqw@gmail.com");
+    return FutureBuilder(
+      future: getApiKey(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        String apiKey = '';
+        if (snapshot.hasData) {
+          apiKey = snapshot.data;
+          print('There is data' + apiKey);
+        } else {
+          print('no data');
+        }
+        return apiKey.length > 0 ? getHomePage() : LoginPage();
+      },
+    );
+  }
+
+  Future getApiKey() async {
+    return prefs.getString('API_Token');
+  }
+
+  Widget getHomePage() {
     return MaterialApp(
       color: Colors.yellow,
       home: SafeArea(
@@ -157,5 +135,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    SharedPreferences.getInstance().then((SharedPreferences sp) {
+      prefs = sp;
+    });
   }
 }

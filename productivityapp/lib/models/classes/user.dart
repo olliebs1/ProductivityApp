@@ -4,7 +4,7 @@ class User {
   String lastname;
   String emailaddress;
   String password;
-  String id;
+  int id;
   String api_key;
 
   User(this.username, this.firstname, this.lastname, this.emailaddress,

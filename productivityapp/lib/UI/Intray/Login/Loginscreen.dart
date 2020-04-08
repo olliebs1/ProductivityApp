@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:productivityapp/bloc/blocs/user_blocs_provider.dart';
+import 'package:productivityapp/models/classes/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -40,18 +42,18 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.red,
                 child: Text('Sign Up'),
                 onPressed: () {
+                  User user;
                   if (firstnameController.text != null ||
                       lastnameController.text != null ||
                       usernameController.text != null ||
                       emailController.text != null ||
-                      passwordController.text != null) {
+                      passwordController.text != null)
                     bloc.registerUser(
                         firstnameController.text,
                         lastnameController.text,
                         usernameController.text,
                         emailController.text,
                         passwordController.text);
-                  }
                 },
               )
             ],
