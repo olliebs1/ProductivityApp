@@ -20,7 +20,7 @@ class ApiProvider {
         }));
     final Map result = json.decode(response.body);
     if (response.statusCode == 201) {
-      saveApiKey(result['data']['api_key']);
+      await saveApiKey(result['data']['api_key']);
       return User.fromJson(result['data']);
     } else {
       throw Exception('Failed to load post');
