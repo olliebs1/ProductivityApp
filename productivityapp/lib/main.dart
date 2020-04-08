@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.grey,
         ),
-        home: MyHomePage()
+        home: LoginPage()
         // FutureBuilder(
         //     future: getUser(), // a previously-obtained Future<String> or null
         //     builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     bloc.registerUser("ollierwqe", "ollwqeerie", "ollqweerie", "123reqwe",
-        "ollieerrqeqw@gmail.com");
+        "ollieerr qeqw@gmail.com");
     return MaterialApp(
       color: Colors.yellow,
       home: SafeArea(
