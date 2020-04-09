@@ -48,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ? getHomePage()
             : LoginPage(
                 signupPressed: signupPressed,
+                newUser: false,
               );
       },
     );
