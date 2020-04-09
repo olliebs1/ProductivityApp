@@ -37,19 +37,71 @@ class _LoginPageState extends State<LoginPage> {
     TextEditingController passwordText = new TextEditingController();
 
     return Container(
+        margin: EdgeInsets.only(top: 100, bottom: 100, left: 20, right: 20),
         child: Column(
-      children: <Widget>[
-        Text('Welcome to the app!'),
-        TextField(
-          decoration: InputDecoration(hintText: 'Username'),
-          controller: usernameText,
-        ),
-        TextField(
-          decoration: InputDecoration(hintText: 'Password'),
-          controller: passwordText,
-        )
-      ],
-    ));
+          children: <Widget>[
+            Text('Welcome to the app!'),
+            Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Theme(
+                    data: Theme.of(context)
+                        .copyWith(splashColor: Colors.transparent),
+                    child: TextField(
+                      controller: usernameText,
+                      autofocus: false,
+                      style: TextStyle(fontSize: 22.0, color: darkGreyColor),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Username',
+                        contentPadding: const EdgeInsets.only(
+                            left: 14.0, bottom: 8.0, top: 8.0),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(25.7),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(25.7),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Theme(
+                    data: Theme.of(context)
+                        .copyWith(splashColor: Colors.transparent),
+                    child: TextField(
+                      controller: passwordText,
+                      autofocus: false,
+                      style: TextStyle(fontSize: 22.0, color: darkGreyColor),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: 'Password',
+                        contentPadding: const EdgeInsets.only(
+                            left: 14.0, bottom: 8.0, top: 8.0),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(25.7),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(25.7),
+                        ),
+                      ),
+                    ),
+                  ),
+                  FlatButton(
+                    child: Text('Sign in'),
+                    onPressed: () {},
+                  )
+                ],
+              ),
+            ),
+          ],
+        ));
   }
 
   Widget getSignupPage() {
