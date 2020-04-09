@@ -4,6 +4,10 @@ import 'package:productivityapp/models/classes/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
+  final VoidCallback signupPressed;
+
+  const LoginPage({Key key, this.signupPressed}) : super(key: key);
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -48,12 +52,16 @@ class _LoginPageState extends State<LoginPage> {
                       usernameController.text != null ||
                       emailController.text != null ||
                       passwordController.text != null)
-                    bloc.registerUser(
-                        firstnameController.text,
-                        lastnameController.text,
-                        usernameController.text,
-                        emailController.text,
-                        passwordController.text);
+                    bloc
+                        .registerUser(
+                            firstnameController.text,
+                            lastnameController.text,
+                            usernameController.text,
+                            emailController.text,
+                            passwordController.text)
+                        .then((_) {
+                      widget.signupPressed();
+                    });
                 },
               )
             ],

@@ -44,9 +44,19 @@ class _MyHomePageState extends State<MyHomePage> {
           print('no data');
         }
         // apiKey.length > 0 ? getHomePage() :
-        return apiKey.length > 0 ? getHomePage() : LoginPage();
+        return apiKey.length > 0
+            ? getHomePage()
+            : LoginPage(
+                signupPressed: signupPressed,
+              );
       },
     );
+  }
+
+  void signupPressed() {
+    setState(() {
+      build(context);
+    });
   }
 
   Future getApiKey() async {
@@ -75,8 +85,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     new Container(
                       child: Center(
                         child: FlatButton(
+                          color: redColor,
                           child: Text('Log Out.'),
-                          onPressed: () {},
+                          onPressed: () {
+                            logout();
+                          },
                         ),
                       ),
                       color: Colors.red,
@@ -146,6 +159,9 @@ class _MyHomePageState extends State<MyHomePage> {
   logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('API_Token', '');
+    setState(() {
+      build(context);
+    });
   }
 
   @override
