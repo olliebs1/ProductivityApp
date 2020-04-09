@@ -32,7 +32,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  SharedPreferences prefs;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -41,17 +40,18 @@ class _MyHomePageState extends State<MyHomePage> {
         String apiKey = '';
         if (snapshot.hasData) {
           apiKey = snapshot.data;
-          print('There is data' + apiKey);
         } else {
           print('no data');
         }
+        // apiKey.length > 0 ? getHomePage() :
         return apiKey.length > 0 ? getHomePage() : LoginPage();
       },
     );
   }
 
   Future getApiKey() async {
-    return prefs.getString('API_Token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.getString('API_Token');
   }
 
   Widget getHomePage() {
@@ -73,6 +73,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.lightGreen,
                     ),
                     new Container(
+                      child: Center(
+                        child: FlatButton(
+                          child: Text('Log Out.'),
+                          onPressed: () {},
+                        ),
+                      ),
                       color: Colors.red,
                     ),
                   ],
@@ -137,11 +143,13 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('API_Token', '');
+  }
+
   @override
   void initState() {
     super.initState();
-    SharedPreferences.getInstance().then((SharedPreferences sp) {
-      prefs = sp;
-    });
   }
 }
