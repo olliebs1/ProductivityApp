@@ -3,6 +3,7 @@ import 'package:productivityapp/bloc/blocs/user_blocs_provider.dart';
 import 'package:productivityapp/models/classes/user.dart';
 import 'package:productivityapp/models/global.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:productivityapp/models/global.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback signupPressed;
@@ -39,11 +40,17 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
         margin: EdgeInsets.only(top: 100, bottom: 100, left: 20, right: 20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text('Welcome to the app!'),
+            Text(
+              'Welcome!',
+              style: bigLightBlueTitle,
+              textAlign: TextAlign.center,
+            ),
             Container(
+              height: 170,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Theme(
                     data: Theme.of(context)
@@ -94,12 +101,33 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   FlatButton(
-                    child: Text('Sign in'),
+                    // color: redColor,
+                    child: Text(
+                      'Sign in',
+                      style: redTodoTitle,
+                      textAlign: TextAlign.center,
+                    ),
                     onPressed: () {},
                   )
                 ],
               ),
             ),
+            Container(
+                child: Column(children: <Widget>[
+              Text(
+                "Don't have an account yet?",
+                style: redText,
+                textAlign: TextAlign.center,
+              ),
+              FlatButton(
+                child: Text(
+                  'Create one.',
+                  style: redBoldText,
+                  textAlign: TextAlign.center,
+                ),
+                onPressed: () {},
+              )
+            ]))
           ],
         ));
   }
