@@ -112,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                           passwordText.text != null) {
                         bloc
                             .signinUser(usernameText.text, passwordText.text)
-                            .then(() {
+                            .then((_) {
                           widget.login();
                         });
                       }
