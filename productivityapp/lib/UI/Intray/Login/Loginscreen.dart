@@ -6,11 +6,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:productivityapp/models/global.dart';
 
 class LoginPage extends StatefulWidget {
-  final VoidCallback signupPressed;
+  final VoidCallback login;
+
   final bool newUser;
 
-  const LoginPage({Key key, this.signupPressed, this.newUser})
-      : super(key: key);
+  const LoginPage({Key key, this.login, this.newUser}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -107,7 +107,16 @@ class _LoginPageState extends State<LoginPage> {
                       style: redTodoTitle,
                       textAlign: TextAlign.center,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      if (usernameText.text != null ||
+                          passwordText.text != null) {
+                        bloc
+                            .signinUser(usernameText.text, passwordText.text)
+                            .then(() {
+                          widget.login();
+                        });
+                      }
+                    },
                   )
                 ],
               ),
@@ -170,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                         emailController.text,
                         passwordController.text)
                     .then((_) {
-                  widget.signupPressed();
+                  widget.login();
                 });
             },
           )

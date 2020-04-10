@@ -47,18 +47,24 @@ class _MyHomePageState extends State<MyHomePage> {
         return apiKey.length > 0
             ? getHomePage()
             : LoginPage(
-                signupPressed: signupPressed,
+                login: login,
                 newUser: false,
               );
       },
     );
   }
 
-  void signupPressed() {
+  void login() {
     setState(() {
       build(context);
     });
   }
+
+  // void signupPressed() {
+  //   setState(() {
+  //     build(context);
+  //   });
+  // }
 
   Future getApiKey() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

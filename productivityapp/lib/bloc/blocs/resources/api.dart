@@ -8,6 +8,17 @@ class ApiProvider {
   Client client = Client();
   final _apiKey = '';
 
+  Future<User> signinUser(String username, String password) async {
+    final response = await client.post("http://127.0.0.1:5000/api/signin",
+        body: jsonEncode({"username": username, "password": password}));
+    final Map result = json.decode(response.body);
+    if (response.statusCode == 201) {
+      await saveApiKey(result['data']['api_key']);
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+
   Future<User> registerUser(String username, String firstname, String lastname,
       String emailaddress, String password) async {
     final response = await client.post("http://127.0.0.1:5000/api/register",
