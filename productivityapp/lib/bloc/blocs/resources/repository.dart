@@ -10,6 +10,6 @@ class Repository {
       apiProvider.registerUser(
           username, firstname, lastname, emailaddress, password);
 
-  Future signinUser(String username, String password) =>
-      apiProvider.signinUser(username, password);
+  Future signinUser(String username, String password, String apiKey) =>
+      apiProvider.signinUser(username, password, apiKey);
 }
