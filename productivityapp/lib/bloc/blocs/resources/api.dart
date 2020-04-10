@@ -39,10 +39,7 @@ class ApiProvider {
   }
 
   saveApiKey(String api_key) async {
-    print('saving1');
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print('saving2');
     await prefs.setString('API_Token', api_key);
-    print('saving3');
   }
 }
