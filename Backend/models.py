@@ -40,3 +40,37 @@ class User(db.Model):
             'password': self.password,
             'emailaddress': self.emailaddress,
         }
+
+
+class Task(db.Model):
+    __tablename__ = 'tasks'
+
+    id = db.Column(db.Integer(), primary_key=True)
+    user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
+    note = db.Column(db.String())
+    completed = db.Column(db.Boolean(), default=True, nullable=False)
+    repeats = db.Column(db.String())
+    deadline = db.Column(db.String())
+    reminder = db.Column(db.String())
+
+    def __init__(self, user_id, note, completed, repeats, deadline, reminders):
+        self.user_id = user_id
+        self.reminders = reminders
+        self.note = note
+        self.completed = completed
+        self.deadline = deadline
+        self.repeats = repeats
+
+    def __repr__(self):
+        return '<id {}>'.format(self.id)
+
+    def serialize(self):
+        return {
+            'user_id': self.user_id,
+            'id': self.id,
+            'repeats': self.repeats,
+            'deadline': self.firstname,
+            'note': self.note,
+            'completed': self.completed,
+            'reminders': self.reminders,
+        }

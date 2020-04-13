@@ -21,29 +21,27 @@ class Register(Resource):
 
         user = User.query.filter_by(username=json_data['username']).first()
         if user:
-            return {'message': 'Username already exists'}, 400
+            return {'message': 'Username not available'}, 400
 
         user = User.query.filter_by(
-            emailaddress=json_data['emailaddress']).first()
+            emailadress=json_data['emailadress']).first()
         if user:
-            return {'message': 'Emailaddress already exists'}, 400
+            return {'message': 'Email address already exists'}, 400
 
         api_key = self.generate_key()
 
-        user = User.query.filter_by(
-            api_key=api_key).first()
+        user = User.query.filter_by(api_key=api_key).first()
         if user:
             return {'message': 'API key already exists'}, 400
 
         user = User(
             api_key=api_key,
-            username=json_data['username'],
             firstname=json_data['firstname'],
             lastname=json_data['lastname'],
+            emailadress=json_data['emailadress'],
             password=json_data['password'],
-            emailaddress=json_data['emailaddress'],
+            username=json_data['username'],
         )
-
         db.session.add(user)
         db.session.commit()
 
@@ -52,4 +50,4 @@ class Register(Resource):
         return {"status": 'success', 'data': result}, 201
 
     def generate_key(self):
-        return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(20))
+        return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(50))
