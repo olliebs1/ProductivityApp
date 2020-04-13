@@ -39,7 +39,7 @@ class Tasks(Resource):
         header = request.headers["Authorization"]
 
         if not header:
-            return {'Message': 'No Api Key'}, 401
+            return {"Messege": "No api key!"}, 400
         else:
             user = User.query.filter_by(api_key=header).first()
             if user:
