@@ -51,7 +51,7 @@ class Task(db.Model):
     completed = db.Column(db.Boolean(), default=True, nullable=False)
     repeats = db.Column(db.String())
     deadline = db.Column(db.String())
-    reminder = db.Column(db.String())
+    reminders = db.Column(db.String())
 
     def __init__(self, user_id, note, completed, repeats, deadline, reminders):
         self.user_id = user_id
@@ -69,7 +69,7 @@ class Task(db.Model):
             'user_id': self.user_id,
             'id': self.id,
             'repeats': self.repeats,
-            'deadline': self.firstname,
+            'deadline': self.deadline,
             'note': self.note,
             'completed': self.completed,
             'reminders': self.reminders,
