@@ -110,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       if (usernameText.text != null ||
                           passwordText.text != null) {
-                        bloc
+                        userBloc
                             .signinUser(
                                 usernameText.text, passwordText.text, '')
                             .then((_) {
@@ -172,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                   usernameController.text != null ||
                   emailController.text != null ||
                   passwordController.text != null)
-                bloc
+                userBloc
                     .registerUser(
                         firstnameController.text,
                         lastnameController.text,

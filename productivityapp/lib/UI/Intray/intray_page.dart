@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:productivityapp/bloc/blocs/user_blocs_provider.dart';
 import 'package:productivityapp/models/classes/task.dart';
 import 'package:productivityapp/models/global.dart';
 import 'package:productivityapp/models/Widgets/intray_productivity_widget.dart';
 
 class IntrayPage extends StatefulWidget {
+  final String apiKey;
+  IntrayPage({this.apiKey});
+
   @override
   _IntrayPageState createState() => _IntrayPageState();
 }
@@ -12,9 +16,20 @@ class _IntrayPageState extends State<IntrayPage> {
   List<Task> taskList = [];
   @override
   Widget build(BuildContext context) {
-    taskList = getList();
     return Container(
-        color: darkGreyColor, child: _buildReorderableListSimple(context));
+        color: darkGreyColor,
+        child: FutureBuilder(
+          future: getList(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              taskList = snapshot.data;
+            } else {
+              print('no data');
+            }
+            // apiKey.length > 0 ? getHomePage() :
+            return _buildReorderableListSimple(context, taskList);
+          },
+        ));
     // child: ReorderableListView(
     //   padding: EdgeInsets.only(
     //     top: 300,
@@ -33,7 +48,8 @@ class _IntrayPageState extends State<IntrayPage> {
     );
   }
 
-  Widget _buildReorderableListSimple(BuildContext context) {
+  Widget _buildReorderableListSimple(
+      BuildContext context, List<Task> taskList) {
     return Theme(
         data: ThemeData(
           canvasColor: Colors.transparent,
@@ -63,10 +79,8 @@ class _IntrayPageState extends State<IntrayPage> {
     }
   }
 
-  List<Task> getList() {
-    for (int i = 0; i < 10; i++) {
-      taskList.add(Task("My first todo" + i.toString(), false, i.toString()));
-    }
-    return taskList;
+  Future<List<Task>> getList() async {
+    List<Task> tasks = await tasksBloc.getUserTasks(widget.apiKey);
+    return tasks;
   }
 }

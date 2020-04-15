@@ -1,3 +1,5 @@
+import 'package:productivityapp/models/classes/task.dart';
+
 import '../blocs/resources/repository.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:productivityapp/models/classes/user.dart';
@@ -25,4 +27,22 @@ class UserBloc {
   }
 }
 
-final bloc = UserBloc();
+class TaskBloc {
+  final _repository = Repository();
+  final _taskGetter = PublishSubject<List<Task>>();
+
+  Observable<List<Task>> get getTask => _taskGetter.stream;
+
+  getUserTasks(String apiKey) async {
+    List<Task> tasks = await _repository.getUserTasks(apiKey);
+    _taskGetter.sink.add(tasks);
+  }
+
+  dispose() {
+    _taskGetter.close();
+  }
+}
+
+final tasksBloc = TaskBloc();
+
+final userBloc = UserBloc();
