@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String apiKey;
+  String apiKey = '';
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -63,12 +63,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Future signinUser() async {
     String username = '';
     apiKey = await getApiKey();
-
-    if (apiKey.length > 0) {
-      userBloc.signinUser('', '', apiKey);
+    if (apiKey != null) {
+      if (apiKey.length > 0) {
+        userBloc.signinUser('', '', apiKey);
+      } else {
+        print('No API');
+      }
     } else {
-      print('No API');
+      apiKey = '';
     }
+
     return apiKey;
   }
 

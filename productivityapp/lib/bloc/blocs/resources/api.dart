@@ -49,6 +49,7 @@ class ApiProvider {
       List<Task> tasks = [];
       for (Map json_ in result['data']) {
         tasks.add(Task.fromJson(json_));
+        print(json_);
       }
       return tasks;
     } else {
