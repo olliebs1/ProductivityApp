@@ -136,12 +136,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 margin: EdgeInsets.only(
                     top: 120,
                     left: MediaQuery.of(context).size.width * 0.5 - 40),
-                child: FloatingActionButton(
-                  child: Icon(
-                    Icons.add,
-                    size: 70,
+                child: Theme(
+                  data: ThemeData(dialogBackgroundColor: darkGreyColor),
+                  child: FloatingActionButton(
+                    child: Icon(
+                      Icons.add,
+                      size: 70,
+                    ),
+                    backgroundColor: redColor,
+                    onPressed: _showAddDialog,
                   ),
-                  backgroundColor: redColor,
                 ),
               )
             ]),
@@ -171,6 +175,26 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showAddDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text("Alert Dialog title"),
+          content: new Text("Alert Dialog body"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
