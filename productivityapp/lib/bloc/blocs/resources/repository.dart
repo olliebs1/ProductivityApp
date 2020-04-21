@@ -6,9 +6,9 @@ class Repository {
   final apiProvider = ApiProvider();
 
   Future<User> registerUser(String username, String firstname, String lastname,
-          String emailaddress, String password) =>
+          String password, String emailaddress) =>
       apiProvider.registerUser(
-          username, firstname, lastname, emailaddress, password);
+          username, firstname, lastname, password, emailaddress);
 
   Future signinUser(String username, String password, String apiKey) =>
       apiProvider.signinUser(username, password, apiKey);

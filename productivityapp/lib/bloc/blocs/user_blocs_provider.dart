@@ -10,9 +10,9 @@ class UserBloc {
   Observable<User> get getUser => _userGetter.stream;
 
   registerUser(String username, String firstname, String lastname,
-      String emailaddress, String password) async {
+      String password, String emailaddress) async {
     User user = await _repository.registerUser(
-        username, firstname, lastname, emailaddress, password);
+        username, firstname, lastname, password, emailaddress);
     _userGetter.sink.add(user);
   }
 
@@ -33,17 +33,17 @@ class TaskBloc {
 
   var _tasks = <Task>[];
 
-  TaskBloc(String api_key) {
-    this.apiKey = api_key;
-    _updateTasks(api_key).then((_) {
+  TaskBloc(String apiKey) {
+    this.apiKey = apiKey;
+    _updateTasks(apiKey).then((_) {
       _taskSubject.add(_tasks);
     });
   }
 
   Stream<List<Task>> get getTasks => _taskSubject.stream;
 
-  Future<List<Task>> _updateTasks(String apiKey) async {
-    return await _repository.getUserTasks(apiKey);
+  Future<Null> _updateTasks(String apiKey) async {
+    _tasks = await _repository.getUserTasks(apiKey);
   }
 }
 

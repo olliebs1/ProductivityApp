@@ -37,7 +37,7 @@ class _IntrayPageState extends State<IntrayPage> {
               if (snapshot.data.length > 0) {
                 return _buildReorderableListSimple(context, snapshot.data);
               } else if (snapshot.data.length == 0) {
-                return Center(child: Text('No Data'));
+                return Center(child: Text('No data'));
               }
             } else if (snapshot.hasError) {
               return Container();
@@ -49,7 +49,7 @@ class _IntrayPageState extends State<IntrayPage> {
 
   Widget _buildListTile(BuildContext context, Task item) {
     return ListTile(
-      key: Key(item.task_id.toString()),
+      key: Key(item.taskId.toString()),
       title: IntrayProductivity(
         title: item.title,
       ),

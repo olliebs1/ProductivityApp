@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:productivityapp/UI/Intray/Login/Loginscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'models/global.dart';
+import 'package:productivityapp/UI/Intray/Login/Loginscreen.dart';
+import 'package:productivityapp/bloc/blocs/resources/repository.dart';
 import 'UI/Intray/intray_page.dart';
+import 'models/global.dart';
 import 'package:http/http.dart' as http;
 import 'package:productivityapp/models/classes/user.dart';
 import 'package:productivityapp/bloc/blocs/user_blocs_provider.dart';
@@ -16,23 +17,22 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Productivity App',
         theme: ThemeData(
-          primarySwatch: Colors.grey,
-        ),
+            primarySwatch: Colors.grey,
+            dialogBackgroundColor: Colors.transparent),
         home: MyHomePage());
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String apiKey = '';
+  TaskBloc tasksBloc;
+  String apiKey = "";
+  Repository _repository = Repository();
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -40,10 +40,10 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           apiKey = snapshot.data;
+          tasksBloc = TaskBloc(apiKey);
         } else {
-          print('no data');
+          print("No data");
         }
-        // apiKey.length > 0 ? getHomePage() :
         return apiKey.length > 0
             ? getHomePage()
             : LoginPage(
@@ -61,24 +61,23 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future signinUser() async {
-    String username = '';
+    String userName = "";
     apiKey = await getApiKey();
     if (apiKey != null) {
       if (apiKey.length > 0) {
-        userBloc.signinUser('', '', apiKey);
+        userBloc.signinUser("", "", apiKey);
       } else {
-        print('No API');
+        print("No api key");
       }
     } else {
-      apiKey = '';
+      apiKey = "";
     }
-
     return apiKey;
   }
 
   Future getApiKey() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return await prefs.getString('API_Token');
+    return await prefs.getString("API_Token");
   }
 
   Widget getHomePage() {
@@ -86,63 +85,66 @@ class _MyHomePageState extends State<MyHomePage> {
       color: Colors.yellow,
       home: SafeArea(
         child: DefaultTabController(
-          length: 4,
+          length: 3,
           child: new Scaffold(
-            body: Stack(
-              children: <Widget>[
-                TabBarView(
-                  children: [
-                    IntrayPage(
-                      apiKey: apiKey,
-                    ),
-                    new Container(
-                      color: Colors.orange,
-                    ),
-                    new Container(
-                      color: Colors.lightGreen,
-                    ),
-                    new Container(
-                      child: Center(
-                        child: FlatButton(
-                          color: redColor,
-                          child: Text('Log Out.'),
-                          onPressed: () {
-                            logout();
-                          },
-                        ),
+            body: Stack(children: <Widget>[
+              TabBarView(
+                children: [
+                  IntrayPage(
+                    apiKey: apiKey,
+                  ),
+                  new Container(
+                    color: Colors.orange,
+                  ),
+                  new Container(
+                    child: Center(
+                      child: FlatButton(
+                        color: redColor,
+                        child: Text("Log out"),
+                        onPressed: () {
+                          logout();
+                        },
                       ),
-                      color: Colors.red,
                     ),
+                    color: Colors.lightGreen,
+                  ),
+                ],
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 50),
+                height: 160,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(50),
+                      bottomRight: Radius.circular(50)),
+                  color: Colors.white,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      "Intray",
+                      style: intrayTitleStyle,
+                    ),
+                    Container()
                   ],
                 ),
-                Container(
-                  padding: EdgeInsets.only(left: 50),
-                  height: 150,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(50),
-                          bottomRight: Radius.circular(50))),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text("Intray", style: intrayTitleStyle),
-                        Container()
-                      ]),
-                ),
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.only(
-                      top: 100, left: MediaQuery.of(context).size.width * 0.40),
-                  child: FloatingActionButton(
-                    child: Icon(Icons.add, size: 50),
-                    backgroundColor: redColor,
-                    onPressed: () {},
+              ),
+              Container(
+                height: 80,
+                width: 80,
+                margin: EdgeInsets.only(
+                    top: 120,
+                    left: MediaQuery.of(context).size.width * 0.5 - 40),
+                child: FloatingActionButton(
+                  child: Icon(
+                    Icons.add,
+                    size: 70,
                   ),
+                  backgroundColor: redColor,
                 ),
-              ],
-            ),
+              )
+            ]),
             appBar: AppBar(
               elevation: 0,
               title: new TabBar(
@@ -156,12 +158,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   Tab(
                     icon: new Icon(Icons.perm_identity),
                   ),
-                  Tab(
-                    icon: new Icon(Icons.settings),
-                  )
                 ],
                 labelColor: darkGreyColor,
-                unselectedLabelColor: darkGreyColor,
+                unselectedLabelColor: Colors.blue,
                 indicatorSize: TabBarIndicatorSize.label,
                 indicatorPadding: EdgeInsets.all(5.0),
                 indicatorColor: Colors.transparent,

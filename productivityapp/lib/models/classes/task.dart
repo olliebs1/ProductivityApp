@@ -1,21 +1,23 @@
+import 'dart:convert';
+
 class Task {
   List<Task> tasks;
-  String title;
   String note;
   DateTime timeToComplete;
   bool completed;
   String repeats;
   DateTime deadline;
   List<DateTime> reminders;
-  int task_id;
+  int taskId;
+  String title;
 
-  Task(this.title, this.completed, this.task_id, this.note);
+  Task(this.title, this.completed, this.taskId, this.note);
 
   factory Task.fromJson(Map<String, dynamic> parsedJson) {
     return Task(
       parsedJson['title'],
       parsedJson['completed'],
-      parsedJson['task_id'],
+      parsedJson['id'],
       parsedJson['note'],
     );
   }
