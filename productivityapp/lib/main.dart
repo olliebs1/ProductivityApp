@@ -258,8 +258,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void addTask(String taskName, String taskDeadline) {
-    print(taskName);
+  void addTask(String taskName, String taskDeadline) async {
+    print(taskName + taskDeadline + apiKey);
+    await _repository.addUserTask(apiKey, taskName, taskDeadline);
   }
 
   logout() async {

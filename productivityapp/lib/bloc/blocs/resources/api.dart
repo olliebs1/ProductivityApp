@@ -74,19 +74,18 @@ class ApiProvider {
 
   Future addUserTask(
       String apiKey, String taskName, String taskDeadline) async {
-    final response =
-        await client.post("http://127.0.0.1:5000/api/tasks", headers: {
-      "Authorization": apiKey
-    }, body: {
-      'note': '',
-      'repeats': '',
-      'completed': false,
-      'deadline': taskDeadline,
-      'reminders': '',
-      'task': taskName,
-    });
+    final response = await client.post("http://127.0.0.1:5000/api/tasks",
+        headers: {"Authorization": apiKey},
+        body: jsonEncode({
+          'note': '',
+          'repeats': '',
+          'completed': false,
+          'deadline': taskDeadline,
+          'reminders': '',
+          'title': taskName,
+        }));
     if (response.statusCode == 201) {
-      print('Task Added! ')
+      print('Task Added!');
     } else {
       throw Exception('Failed to add task');
     }

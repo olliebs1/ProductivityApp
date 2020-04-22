@@ -15,6 +15,8 @@ class Repository {
 
   Future getUserTasks(String apiKey) => apiProvider.getUserTasks(apiKey);
 
-  Future addUserTask(String apiKey, String taskName, String taskDeadline) =>
-      apiProvider.addUserTask(apiKey, taskName, taskDeadline);
+  Future addUserTask(
+      String apiKey, String taskName, String taskDeadline) async {
+    apiProvider.addUserTask(apiKey, taskName, taskDeadline);
+  }
 }
