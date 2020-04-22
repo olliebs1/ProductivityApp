@@ -39,3 +39,15 @@ TextStyle redText = new TextStyle(
     color: redColor,
     fontSize: 20,
     fontWeight: FontWeight.w900);
+
+TextStyle whiteTitle = new TextStyle(
+    fontFamily: 'Avenir',
+    fontWeight: FontWeight.normal,
+    color: Colors.white,
+    fontSize: 20);
+
+TextStyle whiteButtonTitle = new TextStyle(
+    fontFamily: 'Avenir',
+    fontWeight: FontWeight.normal,
+    color: Colors.white,
+    fontSize: 15);

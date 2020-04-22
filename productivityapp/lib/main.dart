@@ -136,16 +136,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 margin: EdgeInsets.only(
                     top: 120,
                     left: MediaQuery.of(context).size.width * 0.5 - 40),
-                child: Theme(
-                  data: ThemeData(dialogBackgroundColor: darkGreyColor),
-                  child: FloatingActionButton(
-                    child: Icon(
-                      Icons.add,
-                      size: 70,
-                    ),
-                    backgroundColor: redColor,
-                    onPressed: _showAddDialog,
+                child: FloatingActionButton(
+                  child: Icon(
+                    Icons.add,
+                    size: 70,
                   ),
+                  backgroundColor: redColor,
+                  onPressed: _showAddDialog,
                 ),
               )
             ]),
@@ -183,16 +180,71 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: new Text("Alert Dialog title"),
-          content: new Text("Alert Dialog body"),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+          content: Container(
+              padding: EdgeInsets.all(10),
+              width: 500,
+              height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(13)),
+                color: darkGreyColor,
+              ),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Add New Task',
+                      style: whiteTitle,
+                    ),
+                    Container(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'New Task',
+                          hintStyle:
+                              TextStyle(color: Colors.white.withOpacity(0.4)),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Deadline',
+                          hintStyle:
+                              TextStyle(color: Colors.white.withOpacity(0.4)),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        RaisedButton(
+                          color: redColor,
+                          child: Text(
+                            'Cancel',
+                            style: whiteButtonTitle,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        RaisedButton(
+                          color: redColor,
+                          child: Text(
+                            'Add',
+                            style: whiteButtonTitle,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        )
+                      ],
+                    )
+                  ])),
         );
       },
     );
