@@ -176,6 +176,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _showAddDialog() {
+    TextEditingController taskName = new TextEditingController();
+    TextEditingController taskDeadline = new TextEditingController();
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -198,6 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Container(
                       child: TextField(
+                        controller: taskName,
                         decoration: InputDecoration(
                           hintText: 'New Task',
                           hintStyle:
@@ -209,6 +213,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Container(
                       child: TextField(
+                        controller: taskDeadline,
                         decoration: InputDecoration(
                           hintText: 'Deadline',
                           hintStyle:
@@ -239,7 +244,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             style: whiteButtonTitle,
                           ),
                           onPressed: () {
-                            Navigator.pop(context);
+                            if (taskName.text != null) {
+                              addTask(taskName.text, taskDeadline.text);
+                              Navigator.pop(context);
+                            }
                           },
                         )
                       ],
@@ -248,6 +256,10 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       },
     );
+  }
+
+  void addTask(String taskName, String taskDeadline) {
+    print(taskName);
   }
 
   logout() async {

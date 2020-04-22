@@ -72,6 +72,26 @@ class ApiProvider {
     }
   }
 
+  Future addUserTask(
+      String apiKey, String taskName, String taskDeadline) async {
+    final response =
+        await client.post("http://127.0.0.1:5000/api/tasks", headers: {
+      "Authorization": apiKey
+    }, body: {
+      'note': '',
+      'repeats': '',
+      'completed': false,
+      'deadline': taskDeadline,
+      'reminders': '',
+      'task': taskName,
+    });
+    if (response.statusCode == 201) {
+      print('Task Added! ')
+    } else {
+      throw Exception('Failed to add task');
+    }
+  }
+
   saveApiKey(String api_key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('API_Token', api_key);
